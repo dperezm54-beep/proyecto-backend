@@ -1,0 +1,142 @@
+<div class="pacientes-container">
+
+  <div class="top-actions">
+    <button class="home-btn" routerLink="/home">
+      ⬅ Volver al menú principal
+    </button>
+  </div>
+
+  <h1>
+    👨‍⚕️ Gestión de datos doctor
+  </h1>
+
+  <div class="formulario">
+
+    <h2>
+      Completar / Editar Doctor
+    </h2>
+
+    <form (ngSubmit)="guardarDoctor()">
+
+      <input
+        type="text"
+        placeholder="Colegiado"
+        [(ngModel)]="doctor.colegiado"
+        name="colegiado"
+      />
+
+      <input
+        type="text"
+        placeholder="Nombre Doctor"
+        [(ngModel)]="doctor.nombreDoctor"
+        name="nombreDoctor"
+      />
+
+      <input
+        type="text"
+        placeholder="Especialidad"
+        [(ngModel)]="doctor.especialidad"
+        name="especialidad"
+      />
+
+      <input
+        type="date"
+        [(ngModel)]="doctor.fechaRegistro"
+        name="fechaRegistro"
+      />
+
+      <input
+        type="text"
+        placeholder="Dirección"
+        [(ngModel)]="doctor.direccion"
+        name="direccion"
+      />
+
+      <input
+        type="text"
+        placeholder="Centro Hospitalario"
+        [(ngModel)]="doctor.centroHospitalario"
+        name="centroHospitalario"
+      />
+
+      <input
+        type="text"
+        placeholder="Edad"
+        [(ngModel)]="doctor.edad"
+        name="edad"
+      />
+
+      <input
+        type="text"
+        placeholder="Observación"
+        [(ngModel)]="doctor.observacion"
+        name="observacion"
+      />
+
+      <button
+        type="submit"
+        [disabled]="!modoEdicion"
+      >
+        Actualizar Doctor
+      </button>
+
+    </form>
+
+  </div>
+
+  <div
+    class="tabla-container"
+    *ngIf="rolUsuarioLogueado === 'ADMIN'"
+  >
+
+    <h2>
+      Lista de Doctores
+    </h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Colegiado</th>
+          <th>Nombre</th>
+          <th>Especialidad</th>
+          <th>Fecha</th>
+          <th>Dirección</th>
+          <th>Hospital</th>
+          <th>Edad</th>
+          <th>Observación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let doctor of doctores">
+
+          <td>{{ doctor.colegiado }}</td>
+          <td>{{ doctor.nombreDoctor }}</td>
+          <td>{{ doctor.especialidad }}</td>
+          <td>{{ doctor.fechaRegistro }}</td>
+          <td>{{ doctor.direccion }}</td>
+          <td>{{ doctor.centroHospitalario }}</td>
+          <td>{{ doctor.edad }}</td>
+          <td>{{ doctor.observacion }}</td>
+
+          <td>
+            <button
+              class="editar"
+              (click)="editarDoctor(doctor)"
+            >
+              Editar
+            </button>
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

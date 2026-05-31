@@ -1,0 +1,176 @@
+<div class="pacientes-container">
+
+  <div class="top-actions">
+    <button class="home-btn" routerLink="/home">
+      ⬅ Volver al Home
+    </button>
+  </div>
+
+  <h1>📋 Historial Médico</h1>
+
+  <div
+    class="formulario"
+    *ngIf="role === 'DOCTOR' || role === 'ADMIN'"
+  >
+
+    <h2>
+      {{ modoEdicion ? 'Editar Historial' : 'Registrar Historial' }}
+    </h2>
+
+    <form (ngSubmit)="guardarHistorial()">
+
+      <select
+        [(ngModel)]="historial.paciente.idPaciente"
+        name="paciente"
+        required
+      >
+        <option [ngValue]="0">Seleccione Paciente</option>
+
+        <option
+          *ngFor="let paciente of pacientes"
+          [ngValue]="paciente.idPaciente"
+        >
+          {{ paciente.nombre }}
+        </option>
+      </select>
+<!-- NO MOSTRAR DOCTOR SI ES DOCTOR -->
+<select
+  *ngIf="role === 'ADMIN'"
+  [(ngModel)]="historial.doctor.idDoctor"
+  name="doctor"
+>
+  <option [ngValue]="0">Seleccione Doctor</option>
+
+  <option
+    *ngFor="let doctor of doctores"
+    [ngValue]="doctor.idDoctor"
+  >
+    {{ doctor.nombreDoctor }}
+  </option>
+</select>
+
+      <select
+        [(ngModel)]="historial.cita!.idCita"
+        name="cita"
+      >
+        <option [ngValue]="0">Seleccione Cita</option>
+
+        <option
+          *ngFor="let cita of citas"
+          [ngValue]="cita.idCita"
+        >
+          {{ cita.fechaCita }} - {{ cita.horaCita }}
+        </option>
+      </select>
+
+      <input
+        type="text"
+        placeholder="Diagnóstico"
+        [(ngModel)]="historial.diagnostico"
+        name="diagnostico"
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Tratamiento"
+        [(ngModel)]="historial.tratamiento"
+        name="tratamiento"
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Medicamentos"
+        [(ngModel)]="historial.medicamentos"
+        name="medicamentos"
+      />
+
+      <input
+        type="text"
+        placeholder="Observaciones"
+        [(ngModel)]="historial.observaciones"
+        name="observaciones"
+      />
+
+      <input
+        type="date"
+        [(ngModel)]="historial.fechaRegistro"
+        name="fechaRegistro"
+      />
+
+      <button type="submit">
+        {{ modoEdicion ? 'Actualizar Historial' : 'Guardar Historial' }}
+      </button>
+
+    </form>
+
+  </div>
+
+  <button
+  class="editar"
+  *ngIf="role === 'ADMIN'"
+  (click)="descargarPdfHistorial()"
+>
+  📄 Descargar PDF Historial
+  
+</button>
+  <div class="tabla-container">
+
+    <h2>Lista de Historial Médico</h2>
+
+    <table>
+
+      <thead>
+        <tr>
+          <th>Paciente</th>
+          <th>Doctor</th>
+          <th>Fecha</th>
+          <th>Diagnóstico</th>
+          <th>Tratamiento</th>
+          <th>Medicamentos</th>
+          <th>Observaciones</th>
+          <th *ngIf="role === 'ADMIN' || role === 'DOCTOR'">Acciones</th>
+        </tr>
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let h of historialLista">
+
+          <td>{{ h.paciente.nombre }}</td>
+          <td>{{ h.doctor.nombreDoctor }}</td>
+          <td>{{ h.fechaRegistro }}</td>
+          <td>{{ h.diagnostico }}</td>
+          <td>{{ h.tratamiento }}</td>
+          <td>{{ h.medicamentos }}</td>
+          <td>{{ h.observaciones }}</td>
+
+          <td *ngIf="role === 'ADMIN' || role === 'DOCTOR'">
+
+            <button
+              class="editar"
+              (click)="editarHistorial(h)"
+            >
+              Editar
+            </button>
+
+            <button
+              class="eliminar"
+              *ngIf="role === 'ADMIN'"
+              (click)="eliminarHistorial(h.idHistorial!)"
+            >
+              Eliminar
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

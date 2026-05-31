@@ -1,0 +1,103 @@
+<div class="usuarios-container">
+
+    <div class="header">
+
+        <h1>👥 Gestión de Usuarios</h1>
+
+        <button routerLink="/home">
+             ⬅ Volver al menú principal
+        </button>
+
+    </div>
+
+    <!-- FORMULARIO -->
+
+    <div class="form-card">
+
+        <input type="text" placeholder="Nombre" [(ngModel)]="usuario.nombre">
+
+        <input type="email" placeholder="Correo" [(ngModel)]="usuario.email">
+
+        <input type="password" placeholder="Contraseña" [(ngModel)]="usuario.password">
+
+        <select [(ngModel)]="usuario.role">
+
+            <option value="PACIENTE">
+                PACIENTE
+            </option>
+
+            <option value="DOCTOR">
+                DOCTOR
+            </option>
+
+            <option value="ADMIN">
+                ADMIN
+            </option>
+
+        </select>
+
+        <button (click)="guardarUsuario()">
+
+            {{
+            modoEdicion
+            ? 'Actualizar Usuario'
+            : 'Guardar Usuario'
+            }}
+
+        </button>
+
+    </div>
+
+    <!-- TABLA -->
+
+    <div class="tabla-card">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Nombre</th>
+
+                    <th>Email</th>
+
+                    <th>Rol</th>
+
+                    <th>Acciones</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr *ngFor="let u of usuarios">
+
+                    <td>{{ u.nombre }}</td>
+
+                    <td>{{ u.email }}</td>
+
+                    <td>{{ u.role }}</td>
+
+                    <td class="acciones">
+
+                        <button class="editar" (click)="editarUsuario(u)">
+                            Editar
+                        </button>
+
+                        <button class="eliminar" (click)="eliminarUsuario(u.id!)">
+                            Eliminar
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

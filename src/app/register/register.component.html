@@ -1,0 +1,81 @@
+<div class="register-container">
+
+  <div class="background-overlay"></div>
+
+  <div class="register-card">
+
+    <!-- PANEL IZQUIERDO -->
+    <div class="welcome-section">
+
+      <h1>Crea<br>tu cuenta!</h1>
+
+      <p>
+        Registra nuevos pacientes en el sistema
+        Hospital La Bendición.
+      </p>
+
+    </div>
+
+    <!-- PANEL DERECHO -->
+    <div class="form-section">
+
+      <div class="tiger-container">
+        <img
+          src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Tiger%20Face.png"
+          alt="Tigre"
+          class="tiger-img">
+      </div>
+
+      <h1>🏥 Hospital La Bendición</h1>
+
+      <h2>Crear Paciente</h2>
+
+      <form (ngSubmit)="register()">
+
+        <div class="input-group">
+          <input
+            type="text"
+            name="nombre"
+            [(ngModel)]="nombre"
+            placeholder="Nombre completo"
+            required>
+        </div>
+
+        <div class="input-group">
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="Correo electrónico"
+            required>
+        </div>
+
+        <div class="input-group">
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Contraseña"
+            required>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-register">
+          Registrarse
+        </button>
+
+      </form>
+
+      <div class="footer-links">
+        <p>
+          ¿Ya tienes cuenta?
+          <a routerLink="/">Iniciar Sesión</a>
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
