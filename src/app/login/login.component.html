@@ -1,0 +1,74 @@
+<div class="login-container">
+
+  <div class="background-overlay"></div>
+
+  <div class="login-card">
+
+    <!-- Lado izquierdo -->
+    <div class="form-section">
+
+      <div class="panda-container">
+        <img
+          src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/Animals/Panda.png"
+          alt="Panda"
+          class="panda-img">
+      </div>
+
+      <h1>🏥 Hospital La Bendición</h1>
+
+      <h2>Login</h2>
+
+      <form (ngSubmit)="login()">
+
+        <div class="input-group">
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder="Correo electrónico"
+            required>
+        </div>
+
+        <div class="input-group">
+          <input
+            type="password"
+            name="password"
+            [(ngModel)]="password"
+            placeholder="Contraseña"
+            required>
+        </div>
+
+        <button
+          type="submit"
+          class="btn-login">
+          Ingresar
+        </button>
+
+      </form>
+
+      <div class="footer-links">
+        <p>
+          ¿No tienes cuenta?
+          <a routerLink="/register">Registrarse</a>
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Lado derecho -->
+    <div class="welcome-section">
+
+      <h1>Bienvenido<br>La salud es importante!</h1>
+
+      <p>
+        Grupor #3 
+        Integrantes Nos alegra tenerte nuevamente.
+        Ingresa para administrar citas,
+        pacientes y médicos del hospital.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,103 @@
+<div class="layout">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="logo">
+      🏥 Hospital
+    </div>
+
+    <ul>
+
+      <li *ngIf="role === 'ADMIN'" routerLink="/usuarios">
+
+        👥 Usuarios
+
+      </li>
+
+      <li *ngIf="role === 'ADMIN' || role === 'DOCTOR'" routerLink="/doctores">
+        👨‍⚕️ Doctores
+
+      </li>
+
+    <li *ngIf="role === 'ADMIN'" routerLink="/pacientes">
+
+  🧑 Pacientes
+
+</li>
+
+<li *ngIf="role === 'DOCTOR'" routerLink="/pacientes">
+
+  🧑 Mis Pacientes
+
+</li>
+
+      <li *ngIf="role === 'ADMIN' || role === 'DOCTOR' || role === 'PACIENTE'" routerLink="/historial">
+        📋 Historial Médico
+      </li>
+
+      <li *ngIf="role === 'PACIENTE'" routerLink="/pacientes">
+        🧑 Mis Datos
+      </li>
+
+      <li routerLink="/citas">
+        📅 Citas
+      </li>
+
+    </ul>
+
+    <button class="logout-btn" (click)="logout()">
+      Cerrar Sesión
+    </button>
+
+  </aside>
+
+  <!-- CONTENIDO -->
+
+  <main class="content">
+
+    <div class="topbar">
+
+      <h1>
+        Bienvenido {{ nombre }}
+      </h1>
+
+      <span class="role-badge">
+        {{ role }}
+      </span>
+
+    </div>
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <!-- PACIENTES -->
+      <div class="stat-card">
+
+        <h2>{{ totalPacientes }}</h2>
+
+       <p>{{ role === 'DOCTOR' ? 'Mis Pacientes' : 'Pacientes' }}</p>
+
+      </div>
+
+      <!-- DOCTORES -->
+      <div class="stat-card">
+
+      <h2>{{ role === 'DOCTOR' ? totalHistoriales : totalDoctores }}</h2>
+
+   <p>{{ role === 'DOCTOR' ? 'Mis Historiales' : 'Doctores' }}</p>
+
+      </div>
+
+      <!-- CITAS -->
+      <div class="stat-card">
+
+        <h2>{{ totalCitas }}</h2>
+
+        <p>Citas</p>
+
+      </div>
+
+    </div>

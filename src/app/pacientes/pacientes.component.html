@@ -1,0 +1,142 @@
+<div class="pacientes-container">
+
+  <div class="top-actions">
+    <button class="home-btn" routerLink="/home">
+      ⬅ Volver al menú principal
+    </button>
+  </div>
+
+  <h1>
+    {{ rolUsuarioLogueado === 'DOCTOR'
+      ? '🧑 Mis Pacientes'
+      : '🏥 Gestión de Pacientes' }}
+  </h1>
+
+  <!-- FORMULARIO SOLO PARA ADMIN Y PACIENTE -->
+  <div
+    class="formulario"
+    *ngIf="rolUsuarioLogueado !== 'DOCTOR'"
+  >
+
+    <h2>
+      Completar / Editar Paciente
+    </h2>
+
+    <form (ngSubmit)="guardarPaciente()">
+
+      <input
+        type="text"
+        placeholder="Nombre"
+        [(ngModel)]="paciente.nombre"
+        name="nombre"
+      />
+
+      <input
+        type="date"
+        [(ngModel)]="paciente.fechaNacimiento"
+        name="fechaNacimiento"
+      />
+
+      <input
+        type="text"
+        placeholder="Dirección"
+        [(ngModel)]="paciente.direccion"
+        name="direccion"
+      />
+
+      <input
+        type="text"
+        placeholder="Teléfono"
+        [(ngModel)]="paciente.telefono"
+        name="telefono"
+      />
+
+      <input
+        type="text"
+        placeholder="Seguro Médico"
+        [(ngModel)]="paciente.seguroMedico"
+        name="seguroMedico"
+      />
+
+      <input
+        type="email"
+        placeholder="Correo"
+        [(ngModel)]="paciente.email"
+        name="email"
+      />
+
+      <button
+        type="submit"
+        [disabled]="!modoEdicion"
+      >
+        Actualizar Datos
+      </button>
+
+    </form>
+
+  </div>
+
+  <!-- TABLA ADMIN Y DOCTOR -->
+  <div
+    class="tabla-container"
+    *ngIf="rolUsuarioLogueado === 'ADMIN' || rolUsuarioLogueado === 'DOCTOR'"
+  >
+
+    <h2>
+      {{ rolUsuarioLogueado === 'DOCTOR'
+        ? 'Mis Pacientes'
+        : 'Lista de Pacientes' }}
+    </h2>
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Nombre</th>
+          <th>Fecha</th>
+          <th>Dirección</th>
+          <th>Teléfono</th>
+          <th>Seguro</th>
+          <th>Correo</th>
+
+          <th *ngIf="rolUsuarioLogueado === 'ADMIN'">
+            Acciones
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let p of pacientes">
+
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.fechaNacimiento }}</td>
+          <td>{{ p.direccion }}</td>
+          <td>{{ p.telefono }}</td>
+          <td>{{ p.seguroMedico }}</td>
+          <td>{{ p.email }}</td>
+
+          <td *ngIf="rolUsuarioLogueado === 'ADMIN'">
+
+            <button
+              class="editar"
+              (click)="editarPaciente(p)"
+            >
+              Editar
+            </button>
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

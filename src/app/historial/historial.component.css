@@ -1,0 +1,97 @@
+.pacientes-container {
+  padding: 35px;
+  background: #f5f7fb;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.top-actions {
+  margin-bottom: 25px;
+}
+
+.home-btn {
+  background: #07142e;
+  color: white;
+  padding: 12px 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+h1 {
+  text-align: center;
+  color: #07142e;
+  font-size: 38px;
+  margin-bottom: 35px;
+}
+
+.formulario,
+.tabla-container {
+  background: white;
+  padding: 28px;
+  border-radius: 15px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+  margin-bottom: 35px;
+}
+
+.formulario h2,
+.tabla-container h2 {
+  color: #07142e;
+  margin-bottom: 20px;
+}
+
+form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+input,
+select {
+  padding: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+button[type="submit"] {
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 13px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: #2563eb;
+  color: white;
+  padding: 14px;
+}
+
+td {
+  padding: 14px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.editar {
+  background: #16a34a;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 7px;
+}
+
+.eliminar {
+  background: #dc2626;
+  color: white;
+  border: none;
+  padding: 9px 14px;
+  border-radius: 7px;
+}

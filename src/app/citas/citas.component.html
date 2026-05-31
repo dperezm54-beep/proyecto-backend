@@ -1,0 +1,282 @@
+<div *ngIf="mostrarFormularioPaciente" class="completar-datos">
+
+  <h2>
+    Completa tus datos
+  </h2>
+
+  <input
+    type="text"
+    placeholder="Dirección"
+    [(ngModel)]="pacienteNuevo.direccion"
+  />
+
+  <input
+    type="text"
+    placeholder="Teléfono"
+    [(ngModel)]="pacienteNuevo.telefono"
+  />
+
+  <input
+    type="text"
+    placeholder="Seguro Médico"
+    [(ngModel)]="pacienteNuevo.seguroMedico"
+  />
+
+  <input
+    type="date"
+    [(ngModel)]="pacienteNuevo.fechaNacimiento"
+  />
+
+  <button (click)="guardarDatosPaciente()">
+    Guardar Datos
+  </button>
+
+</div>
+
+<div class="pacientes-container">
+
+  <div class="top-actions">
+
+    <button class="home-btn" routerLink="/home">
+      ⬅ Volver al Home
+    </button>
+
+  </div>
+
+  <h1>
+    📅 Gestión de Citas
+  </h1>
+
+  <div class="formulario">
+
+    <h2>
+      {{ modoEdicion ? 'Editar Cita' : 'Registrar Cita' }}
+    </h2>
+
+    <form (ngSubmit)="guardarCita()">
+
+      <select
+        [(ngModel)]="cita.paciente.idPaciente"
+        name="paciente"
+        required
+      >
+
+        <option [ngValue]="0">
+          Seleccione Paciente
+        </option>
+
+        <option
+          *ngFor="let paciente of pacientes"
+          [ngValue]="paciente.idPaciente"
+        >
+          {{ paciente.nombre }}
+        </option>
+
+      </select>
+
+      <select
+        *ngIf="role !== 'DOCTOR'"
+        [(ngModel)]="cita.doctor.idDoctor"
+        name="doctor"
+        required
+      >
+
+        <option [ngValue]="0">
+          Seleccione Doctor
+        </option>
+
+        <option
+          *ngFor="let doctor of doctores"
+          [ngValue]="doctor.idDoctor"
+        >
+          {{ doctor.nombreDoctor }}
+        </option>
+
+      </select>
+
+      <input
+        type="date"
+        [(ngModel)]="cita.fechaCita"
+        name="fechaCita"
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Hora"
+        [(ngModel)]="cita.horaCita"
+        name="horaCita"
+        required
+      />
+
+      <input
+        type="text"
+        placeholder="Estado"
+        [(ngModel)]="cita.estado"
+        name="estado"
+        readonly
+      />
+
+      <input
+        type="text"
+        placeholder="Observación"
+        [(ngModel)]="cita.observacion"
+        name="observacion"
+      />
+
+      <button type="submit">
+        {{ modoEdicion ? 'Actualizar Cita' : 'Guardar Cita' }}
+      </button>
+
+    </form>
+
+  </div>
+
+
+  <button
+  class="editar"
+  *ngIf="role === 'ADMIN'"
+  (click)="descargarPdfCitas()"
+>
+  📄 Descargar PDF de Citas
+</button>
+  <div class="tabla-container">
+
+    <h2>
+      Lista de Citas
+    </h2>
+
+    <table>
+
+      <thead>
+
+        <tr>
+          <th>Paciente</th>
+          <th>Doctor</th>
+          <th>Fecha</th>
+          <th>Hora</th>
+          <th>Estado</th>
+          <th>Observación</th>
+          <th>Acciones</th>
+        </tr>
+
+      </thead>
+
+      <tbody>
+
+        <tr *ngFor="let cita of citas">
+
+          <td>
+            {{ cita.paciente.nombre }}
+          </td>
+
+          <td>
+            {{ cita.doctor.nombreDoctor }}
+          </td>
+
+          <td>
+            {{ cita.fechaCita }}
+          </td>
+
+          <td>
+            {{ cita.horaCita }}
+          </td>
+
+          <td>
+            {{ cita.estado }}
+          </td>
+
+          <td>
+            {{ cita.observacion }}
+          </td>
+
+          <td>
+
+  <td>
+
+  <!-- ADMIN -->
+  <button
+    *ngIf="role === 'ADMIN' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="editar"
+    (click)="reprogramarCita(cita)"
+  >
+    Reprogramar
+  </button>
+
+  <button
+    *ngIf="role === 'ADMIN' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="eliminar"
+    (click)="cancelarCita(cita.idCita!)"
+  >
+    Cancelar
+  </button>
+
+  <button
+    *ngIf="role === 'ADMIN'"
+    class="eliminar"
+    (click)="eliminarCita(cita.idCita!)"
+  >
+    Eliminar
+  </button>
+
+  <!-- PACIENTE -->
+  <button
+    *ngIf="role === 'PACIENTE' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="editar"
+    (click)="reprogramarCita(cita)"
+  >
+    Reprogramar
+  </button>
+
+  <button
+    *ngIf="role === 'PACIENTE' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="eliminar"
+    (click)="cancelarCita(cita.idCita!)"
+  >
+    Cancelar
+  </button>
+
+  <!-- DOCTOR -->
+  <button
+    *ngIf="role === 'DOCTOR' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="editar"
+    (click)="reprogramarCita(cita)"
+  >
+    Reprogramar
+  </button>
+
+  <button
+    *ngIf="role === 'DOCTOR' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="editar"
+    (click)="marcarAtendida(cita.idCita!)"
+  >
+    Atender
+  </button>
+
+  <button
+    *ngIf="role === 'DOCTOR' && cita.estado !== 'ATENDIDA' && cita.estado !== 'CANCELADA'"
+    class="eliminar"
+    (click)="cancelarCita(cita.idCita!)"
+  >
+    Cancelar
+  </button>
+
+  <span *ngIf="cita.estado === 'ATENDIDA'">
+    ✅ Finalizada
+  </span>
+
+  <span *ngIf="cita.estado === 'CANCELADA'">
+    ❌ Cancelada
+  </span>
+
+</td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
